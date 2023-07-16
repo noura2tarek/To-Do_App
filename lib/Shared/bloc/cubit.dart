@@ -95,7 +95,7 @@ class Appcubit extends Cubit<AppStates> {
         emit(InsertDatabaseState());
         readData(database); // to reload ang get new data
       }).catchError((error) {
-        print('${error.toString()}');
+        print(error.toString());
       });
     });
   }
@@ -107,7 +107,7 @@ class Appcubit extends Cubit<AppStates> {
 
     emit(GetDatabaseLoadingState());
     database.rawQuery('SELECT * FROM Tasks').then((value) {
-      value.forEach((element) {
+      for (Map<String, Object?> element in value) {
         if (element['status'] == "new") {
           newTasks.add(element);
         } else if (element['status'] == "done") {
@@ -115,7 +115,7 @@ class Appcubit extends Cubit<AppStates> {
         } else {
           archivedTasks.add(element);
         }
-      });
+      }
 
       emit(GetDatabaseState());
     }).catchError((error) {
