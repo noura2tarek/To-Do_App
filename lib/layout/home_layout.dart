@@ -10,16 +10,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class HomeLayout extends StatelessWidget {
   HomeLayout({super.key});
 
-  var scaffoldKey = GlobalKey<ScaffoldState>();
-  var formKey = GlobalKey<FormState>();
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+  final formKey = GlobalKey<FormState>();
 
-  TextEditingController titleController = TextEditingController();
-  TextEditingController timeController = TextEditingController();
-  TextEditingController dateController = TextEditingController();
-
-  String titleLabel = 'Task Title';
-  String timeLabel = 'Task Time';
-  String dateLabel = 'Task Date';
+  final TextEditingController titleController = TextEditingController();
+  final TextEditingController timeController = TextEditingController();
+  final TextEditingController dateController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +75,7 @@ class HomeLayout extends StatelessWidget {
                                     preficon: Icons.title,
                                     type: TextInputType.text,
                                     controller: titleController,
-                                    label: titleLabel,
+                                    label: 'Task Title',
                                     validator: (String? value) {
                                       if (value!.isEmpty) {
                                         return 'Task title must not be null';
@@ -93,7 +89,7 @@ class HomeLayout extends StatelessWidget {
                                   preficon: Icons.watch_later_outlined,
                                   type: TextInputType.none,
                                   controller: timeController,
-                                  label: timeLabel,
+                                  label: "Task Time",
                                   validator: (String? value) {
                                     if (value!.isEmpty) {
                                       return 'Task time must not be null';
@@ -121,7 +117,7 @@ class HomeLayout extends StatelessWidget {
                                   preficon: Icons.date_range,
                                   type: TextInputType.none,
                                   controller: dateController,
-                                  label: dateLabel,
+                                  label: "Task Date",
                                   validator: (String? value) {
                                     if (value!.isEmpty) {
                                       return 'Task date must not be null';
@@ -136,8 +132,7 @@ class HomeLayout extends StatelessWidget {
                                       lastDate: DateTime.parse('2023-08-20'),
                                     ).then((DateTime? value) {
                                       dateController.text = DateFormat.yMMMd()
-                                          .format(
-                                              value!); // to format date as year, month day using intl package
+                                          .format(value!); // to format date as year, month day using intl package
                                     }).catchError((error) {
                                       print('${error.toString()}');
                                     });

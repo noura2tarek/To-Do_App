@@ -1,8 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:todo_app/Shared/bloc/cubit.dart';
-import 'package:todo_app/Shared/bloc/states.dart';
 
 Widget defaultFormField({
   required TextInputType type,
@@ -76,7 +74,7 @@ Widget buildTaskItem(Map taskModel, BuildContext context) {
                 size: 32.0,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 6.0,
             ),
             Expanded(
@@ -88,22 +86,22 @@ Widget buildTaskItem(Map taskModel, BuildContext context) {
                     '${taskModel['title']}',
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18.0,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 6.0,
                   ),
                   Row(
                     children: [
                       Text(
                         '${taskModel['date']}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black45,
                         ),
                       ),
-                      Padding(
+                      const Padding(
                         padding:
                             EdgeInsetsDirectional.symmetric(horizontal: 6.0),
                         child: CircleAvatar(
@@ -113,7 +111,7 @@ Widget buildTaskItem(Map taskModel, BuildContext context) {
                       ),
                       Text(
                         '${taskModel['time']}',
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black45,
                         ),
                       ),
@@ -122,7 +120,7 @@ Widget buildTaskItem(Map taskModel, BuildContext context) {
                 ],
               ),
             ),
-            SizedBox(
+            const SizedBox(
               width: 10.0,
             ),
             IconButton(
