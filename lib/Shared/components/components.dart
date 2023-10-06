@@ -41,9 +41,9 @@ Widget defaultFormField({
 
 Widget buildTaskItem(Map taskModel, BuildContext context) {
   Appcubit myCubit = Appcubit.get(context);
-  return GestureDetector(
-    onLongPress: (){
-      showAlertDialog(taskModel:taskModel ,context: context);
+  return InkWell(
+    onLongPress: () {
+      showAlertDialog(context: context, taskModel: taskModel);
     },
     child: Padding(
       padding: const EdgeInsets.all(15.0),
@@ -161,7 +161,7 @@ Widget taskBuilder({required List<Map> tasks}) {
             itemCount: tasks.length,
           ),
       fallback: (context) {
-        return Center(
+        return const Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -184,9 +184,10 @@ Widget taskBuilder({required List<Map> tasks}) {
       });
 }
 
-void showAlertDialog(
-    {required BuildContext context,
-    required Map taskModel,}) {
+void showAlertDialog({
+  required BuildContext context,
+  required Map taskModel,
+}) {
 // Set up the buttons
   Widget cancelButton = MaterialButton(
     shape: RoundedRectangleBorder(
@@ -203,12 +204,12 @@ void showAlertDialog(
   );
   Widget continueButton = MaterialButton(
     shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
+      borderRadius: BorderRadius.circular(10),
     ),
     color: Colors.teal,
     onPressed: () {
       Appcubit.get(context).deleteFromMydatabase(id: taskModel['id']);
-      Navigator.of(context).pop();
+      Navigator.of(context).pop(true);
     },
     child: const Text(
       'Yes',
@@ -228,7 +229,6 @@ void showAlertDialog(
     ),
     content: const Text(
       'Are you sure?',
-
     ),
     actions: [
       cancelButton,
@@ -236,7 +236,7 @@ void showAlertDialog(
     ],
   );
   showDialog(
-      barrierDismissible:false,
+      barrierDismissible: false,
       context: context,
       builder: (BuildContext context) {
         return alert;

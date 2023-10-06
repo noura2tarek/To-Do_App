@@ -129,10 +129,9 @@ class HomeLayout extends StatelessWidget {
                                       context: context,
                                       initialDate: DateTime.now(),
                                       firstDate: DateTime.now(),
-                                      lastDate: DateTime.parse('2023-08-20'),
+                                      lastDate: DateTime.parse('2024-08-20'),
                                     ).then((DateTime? value) {
-                                      dateController.text = DateFormat.yMMMd()
-                                          .format(value!); // to format date as year, month day using intl package
+                                      dateController.text = DateFormat.yMMMd().format(value!); // to format date as year, month day using intl package
                                     }).catchError((error) {
                                       print('${error.toString()}');
                                     });
