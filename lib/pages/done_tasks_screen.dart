@@ -10,10 +10,10 @@ class DoneTasks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<Appcubit, AppStates>(
+    return BlocConsumer<AppCubit, AppStates>(
         listener: (BuildContext context, AppStates state) {},
         builder: ( BuildContext context,  AppStates state) {
-          List<Map> tasks = Appcubit.get(context).doneTasks;
+          List<Map> tasks = AppCubit.get(context).doneTasks;
 
           return taskBuilder(tasks: tasks);
         }

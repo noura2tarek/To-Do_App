@@ -1,4 +1,3 @@
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/Shared/bloc/cubit.dart';
@@ -11,10 +10,10 @@ class Tasks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<Appcubit, AppStates>(
+    return BlocConsumer<AppCubit, AppStates>(
         listener: (BuildContext context, AppStates state) {},
         builder: (BuildContext context, AppStates state) {
-          List<Map> tasks = Appcubit.get(context).newTasks;
+          List<Map> tasks = AppCubit.get(context).newTasks;
 
           return taskBuilder(tasks: tasks);
         }

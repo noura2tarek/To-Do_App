@@ -40,7 +40,7 @@ Widget defaultFormField({
 }
 
 Widget buildTaskItem(Map taskModel, BuildContext context) {
-  Appcubit myCubit = Appcubit.get(context);
+  AppCubit myCubit = AppCubit.get(context);
   return InkWell(
     onLongPress: () {
       showAlertDialog(context: context, taskModel: taskModel);
@@ -128,7 +128,7 @@ Widget buildTaskItem(Map taskModel, BuildContext context) {
                 if (taskModel['status'] == 'archived') {
                   return;
                 } else {
-                  Appcubit.get(context).updateMydatabase(
+                  AppCubit.get(context).updateMydatabase(
                       status: 'archived',
                       id: taskModel['id'],
                       filled: taskModel['filled']);
@@ -195,7 +195,7 @@ void showAlertDialog({
     ),
     color: Colors.grey,
     onPressed: () {
-      Appcubit.get(context).cancelDelete(context);
+      AppCubit.get(context).cancelDelete(context);
     },
     child: const Text(
       'Cancel',
@@ -208,7 +208,7 @@ void showAlertDialog({
     ),
     color: Colors.teal,
     onPressed: () {
-      Appcubit.get(context).deleteFromMydatabase(id: taskModel['id']);
+      AppCubit.get(context).deleteFromMydatabase(id: taskModel['id']);
       Navigator.of(context).pop(true);
     },
     child: const Text(

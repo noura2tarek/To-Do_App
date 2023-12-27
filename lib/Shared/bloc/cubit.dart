@@ -9,8 +9,8 @@ import '../../pages/archived_screen.dart';
 import '../../pages/done_tasks_screen.dart';
 import '../../pages/tasks_screen.dart';
 
-class Appcubit extends Cubit<AppStates> {
-  Appcubit() : super(AppIntialState());
+class AppCubit extends Cubit<AppStates> {
+  AppCubit() : super(AppIntialState());
 
   int currentIndex = 0;
   List<Widget> screens = [
@@ -31,7 +31,7 @@ class Appcubit extends Cubit<AppStates> {
   bool isBottomSheetShown = false;
   IconData fabIcon = Icons.edit;
 
-  static Appcubit get(context) {
+  static AppCubit get(context) {
     return BlocProvider.of(context);
   }
 

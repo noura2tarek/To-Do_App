@@ -20,20 +20,20 @@ class HomeLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (BuildContext context) => Appcubit()..createDatabase(context),
-      child: BlocConsumer<Appcubit, AppStates>(
+      create: (BuildContext context) => AppCubit()..createDatabase(context),
+      child: BlocConsumer<AppCubit, AppStates>(
         listener: (BuildContext context, AppStates state) {
           if (state is InsertDatabaseState) {
             Navigator.pop(context);
             titleController.text = '';
             dateController.text = '';
             timeController.text = '';
-            Appcubit.get(context)
+            AppCubit.get(context)
                 .changeBottomSheetState(isShown: false, icon: Icons.edit);
           }
         },
         builder: (BuildContext context, AppStates state) {
-          Appcubit cubit = Appcubit.get(context);
+          AppCubit cubit = AppCubit.get(context);
           return Scaffold(
             key: scaffoldKey,
             appBar: AppBar(
