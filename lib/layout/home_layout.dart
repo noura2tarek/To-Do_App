@@ -106,7 +106,7 @@ class HomeLayout extends StatelessWidget {
                                             value!.format(context);
                                       },
                                     ).catchError((error) {
-                                      print('error${error.toString()}');
+                                      //print('error${error.toString()}');
                                     });
                                   },
                                 ),
@@ -131,9 +131,11 @@ class HomeLayout extends StatelessWidget {
                                       firstDate: DateTime.now(),
                                       lastDate: DateTime.parse('2024-08-20'),
                                     ).then((DateTime? value) {
-                                      dateController.text = DateFormat.yMMMd().format(value!); // to format date as year, month day using intl package
+                                      dateController.text = DateFormat.yMMMd()
+                                          .format(
+                                              value!); // to format date as year, month day using intl package
                                     }).catchError((error) {
-                                      print('${error.toString()}');
+                                      print(error.toString());
                                     });
                                   },
                                 ),
@@ -161,7 +163,7 @@ class HomeLayout extends StatelessWidget {
                 cubit.changeIndex(index);
               },
               currentIndex: cubit.currentIndex,
-              items: [
+              items: const [
                 BottomNavigationBarItem(
                   icon: Icon(Icons.menu),
                   label: 'Tasks',

@@ -1,10 +1,7 @@
-import 'package:bloc/bloc.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:todo_app/Shared/bloc/states.dart';
-
 import '../../pages/archived_screen.dart';
 import '../../pages/done_tasks_screen.dart';
 import '../../pages/tasks_screen.dart';
@@ -51,20 +48,25 @@ class AppCubit extends Cubit<AppStates> {
 
   void cancelDelete(BuildContext context) {
     Navigator.of(context).pop();
-
   }
 
-//***************************************** sql database ****************************************/////////
+//************************************ sql database ************************************//
   late Database database;
 
   void createDatabase(BuildContext context) {
     openDatabase('todo.db',
         version: 1,
         onCreate: (Database database, int version) {
-          database
-              .execute(
-                  'CREATE TABLE Tasks (id INTEGER PRIMARY KEY AUTOINCREMENT, title TEXT, date TEXT, time TEXT , status TEXT, filled INTEGER)')
-              .then((value) {
+          database.execute('''
+          CREATE TABLE Tasks (
+           id INTEGER PRIMARY KEY AUTOINCREMENT,
+           title TEXT,
+           date TEXT,
+           time TEXT ,
+           status TEXT,
+           filled INTEGER
+          )
+          ''').then((value) {
             print('Table created');
           }).catchError((Error) {
             print('Error occurred while creating table! ${Error.toString()}');
@@ -89,7 +91,7 @@ class AppCubit extends Cubit<AppStates> {
     await database.transaction((txn) async {
       await txn
           .rawInsert(
-              'INSERT INTO Tasks(title, date, time, status, filled) VALUES ("${title}", "${date}" ,"${time}", "new" ,0)')
+          'INSERT INTO Tasks(title, date, time, status, filled) VALUES ("${title}", "${date}" ,"${time}", "new" ,0)')
           .then((value) {
         print(" row inserted successfully");
         emit(InsertDatabaseState());
@@ -123,10 +125,10 @@ class AppCubit extends Cubit<AppStates> {
     });
   }
 
-  void updateMydatabase(
+  void updateMyDatabase(
       {required String status, required int filled, required int id}) {
     database.rawUpdate('UPDATE Tasks SET status = ? , filled = ?  WHERE id = ?',
-        ['${status}', filled, id]).then((value) {
+        ['$status', filled, id]).then((value) {
       readData(database); // to reload tasks in the page
       emit(UpdateDatabaseState());
     }).catchError((error) {
@@ -141,7 +143,7 @@ class AppCubit extends Cubit<AppStates> {
     // print('deleted successfully');
   }
 
-  void deleteFromMydatabase({required int id}) {
+  void deleteFromMyDatabase({required int id}) {
     database.rawDelete('DELETE FROM Tasks WHERE id = ?', [id]).then((value) {
       readData(database); //to reload tasks in the page
       emit(DeleteFromDatabaseState());

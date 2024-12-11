@@ -1,10 +1,10 @@
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-//reusable sql database
 class SqlDB {
   static Database? _db;
 
+// This function we use from the class to ensure that the database is initialized only once
   Future<Database?> get db async {
     if (_db == null) {
       _db = await initDB();
@@ -14,25 +14,31 @@ class SqlDB {
     }
   }
 
-  //initialize function to initialize database, this will be called only once to create database
+  // Initialize function to initialize database, this will be called only once to create database
   // if we want to add table or edit table structure , version will change and the method (onUpgrade) will be called
   initDB() async {
     //Get a Database Location using getDataBasePath from ios or android phone
     String databasePath = await getDatabasesPath();
     String path = join(databasePath, 'appDB.db'); //databasePath/ appDB.db
-    Database mydatabase = await openDatabase(
+    Database myDatabase = await openDatabase(
       path,
       version: 1,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );
-    return mydatabase;
+    return myDatabase;
   }
 
   // onCreate method execute only once  in the start to create database
-  _onCreate(Database db, int version) async {
-    await db.execute(''''
-    CREATE TABLE "Tasks"("id" INTEGER  PRIMARY KEY AUTOINCREMENT,"title" TEXT ,date TEXT , "time" TEXT, "status" TEXT)
+  _onCreate(Database db, int version) {
+     db.execute('''
+    CREATE TABLE Tasks(
+     id INTEGER  PRIMARY KEY AUTOINCREMENT,
+     title TEXT ,
+     date TEXT ,
+     time TEXT, 
+     status TEXT
+    )
     ''').then((value) => print('table created ======'));
     // the above statement creates table whose name is tasks in database.
     // To make another table execute another sql statement
@@ -42,7 +48,7 @@ class SqlDB {
     //add a new column or drop column use on upgrade but first change the version of database
     //or delete all database and create it another time.
     await db.execute("ALTER TABLE Tasks ADD COLUMN color TEXT");
-    print('Database upgraded ======');
+   // print('Database upgraded ======');
   }
 
   //CREATE done

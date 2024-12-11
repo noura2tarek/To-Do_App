@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/Shared/bloc/cubit.dart';
 import 'package:todo_app/Shared/bloc/states.dart';
-
 import '../Shared/components/components.dart';
 
 class Tasks extends StatelessWidget {
@@ -16,7 +15,6 @@ class Tasks extends StatelessWidget {
           List<Map> tasks = AppCubit.get(context).newTasks;
 
           return taskBuilder(tasks: tasks);
-        }
-        );
+        });
   }
 }

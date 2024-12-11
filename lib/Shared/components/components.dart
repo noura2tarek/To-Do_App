@@ -39,6 +39,7 @@ Widget defaultFormField({
   );
 }
 
+/*----------- Task Item -----------*/
 Widget buildTaskItem(Map taskModel, BuildContext context) {
   AppCubit myCubit = AppCubit.get(context);
   return InkWell(
@@ -62,7 +63,7 @@ Widget buildTaskItem(Map taskModel, BuildContext context) {
                     taskModel['status'] == 'archived') {
                   return;
                 } else {
-                  myCubit.updateMydatabase(
+                  myCubit.updateMyDatabase(
                       status: 'done', id: taskModel['id'], filled: 1);
                 }
               },
@@ -128,13 +129,13 @@ Widget buildTaskItem(Map taskModel, BuildContext context) {
                 if (taskModel['status'] == 'archived') {
                   return;
                 } else {
-                  AppCubit.get(context).updateMydatabase(
+                  AppCubit.get(context).updateMyDatabase(
                       status: 'archived',
                       id: taskModel['id'],
                       filled: taskModel['filled']);
                 }
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.archive,
                 color: Colors.black45,
               ),
@@ -146,6 +147,7 @@ Widget buildTaskItem(Map taskModel, BuildContext context) {
   );
 }
 
+/*------------ Task Builder --------------*/
 Widget taskBuilder({required List<Map> tasks}) {
   return ConditionalBuilder(
       condition: tasks.isNotEmpty,
@@ -184,6 +186,8 @@ Widget taskBuilder({required List<Map> tasks}) {
       });
 }
 
+/*------- Alert Dialog --------*/
+
 void showAlertDialog({
   required BuildContext context,
   required Map taskModel,
@@ -208,7 +212,7 @@ void showAlertDialog({
     ),
     color: Colors.teal,
     onPressed: () {
-      AppCubit.get(context).deleteFromMydatabase(id: taskModel['id']);
+      AppCubit.get(context).deleteFromMyDatabase(id: taskModel['id']);
       Navigator.of(context).pop(true);
     },
     child: const Text(
